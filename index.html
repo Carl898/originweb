@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beach Dream Lace Dress - product details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .product-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 图片画廊区域 */
+        .image-gallery {
+            display: flex;
+            gap: 20px;
+        }
+
+        .thumbnail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail:hover {
+            border-color: #4a90e2;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .thumbnail.active {
+            border-color: #4a90e2;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .main-image-container {
+            flex: 1;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        /* 产品信息区域 */
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 5px 0;
+        }
+
+        .price-section {
+            margin: 5px 0;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin: 5px 0;
+        }
+
+        .price {
+            color: #333;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .payment-options {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .payment-link {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+
+        .payment-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 商品介绍模块 */
+        .product-description {
+            margin: 8px 0 12px 0;
+            padding: 15px 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .description-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .description-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .description-content p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .description-features {
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0 0 0;
+        }
+
+        .description-features li {
+            margin: 10px 0;
+            padding-left: 22px;
+            position: relative;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .description-features li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4a90e2;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .color-section, .size-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .color-label, .size-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .color-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .color-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            overflow: hidden;
+        }
+
+        .color-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .size-buttons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            min-width: 44px;
+            height: 36px;
+            padding: 0 14px;
+            background: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            letter-spacing: 0.3px;
+        }
+
+        .size-btn:hover {
+            background: #fafafa;
+            border-color: #d0d0d0;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .size-btn.selected {
+            background: #1a1a1a;
+            border-color: #1a1a1a;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            font-weight: 600;
+        }
+
+        .size-btn.selected:hover {
+            background: #2a2a2a;
+            border-color: #2a2a2a;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .btn-cart, .btn-buy {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-cart {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+
+        .btn-cart:hover {
+            background: #e8e8e8;
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
+        }
+
+        .btn-buy {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .btn-buy:hover {
+            background: #333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-share {
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .btn-share:hover {
+            background: #f8f8f8;
+            border-color: #d0d0d0;
+            color: #333;
+            transform: translateY(-1px);
+        }
+
+        .btn-share svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .product-specs {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .spec-item {
+            margin: 6px 0;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .size-fit-link {
+            color: #4a90e2;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .size-fit-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .product-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .image-gallery {
+                flex-direction: column-reverse;
+            }
+
+            .thumbnail-list {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .thumbnail {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .product-wrapper {
+                padding: 20px;
+            }
+
+            .product-title {
+                font-size: 28px;
+            }
+
+            .sale-price {
+                font-size: 28px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .wishlist-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 产品主区域 -->
+        <div class="product-wrapper">
+            <!-- 图片画廊 -->
+            <div class="image-gallery">
+                <div class="thumbnail-list">
+                    <img src="" alt="产品图片 1" class="thumbnail active" onclick="changeImage(0)">
+                    <img src="" alt="产品图片 2" class="thumbnail" onclick="changeImage(1)">
+                    <img src="" alt="产品图片 3" class="thumbnail" onclick="changeImage(2)">
+                </div>
+                <div class="main-image-container">
+                    <img src="" alt="主产品图片" class="main-image" id="mainImage">
+                </div>
+            </div>
+
+            <!-- 产品信息 -->
+            <div class="product-info">
+                <h1 class="product-title">Beach Dream Lace Dress</h1>
+
+                <div class="price-section">
+                    <div class="price-container">
+                        <span class="price">$30.87</span>
+                    </div>
+                </div>
+
+                <div class="product-description">
+                    <div class="description-title">Product Description:</div>
+                    <div class="description-content">
+                        <p>The Beach Dream Lace Dress features a flattering fitted silhouette that elegantly accentuates the feminine form. The romantic V-neckline pairs beautifully with intricate long lace sleeves, while the bodice hugs the natural waistline before flowing gracefully from the calf to an ankle-grazing length. Delicate tiered lace panels create an ethereal, lightweight aesthetic that moves beautifully with every step. The exquisite openwork lace craftsmanship and layered detailing make this dress perfect for seaside escapes or special occasions.</p>
+                        <ul class="description-features">
+                            <li>Invisible zip at centre back</li>
+                            <li>Designed for a fitted silhouette. We recommend ordering your usual size</li>
+                            <li>Our ecommerce model is 174 cm tall and wears size M</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="size-section">
+                    <div class="size-buttons">
+                        <button class="size-btn" data-size="S">S</button>
+                        <button class="size-btn" data-size="M">M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-cart">Add to Cart</button>
+                    <button class="btn-buy">Buy Now</button>
+                    <button class="btn-share" title="Share">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="product-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Outer:</span> 90% Polyester, 10% Nylon
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Lining:</span> 100% Polyester
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Model wears:</span> Size M
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 图片路径 - 使用相对路径
+        const images = [
+            'img/image1.png', 
+            'img/image2.png', 
+            'img/image3.png'               
+        ];
+
+        // 初始化图片
+        function initImages() {
+            const mainImage = document.getElementById('mainImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+
+            // 设置主图（使用第一张图片）
+            if (images[0]) {
+                mainImage.src = images[0];
+            }
+
+            // 设置缩略图
+            thumbnails.forEach((thumb, index) => {
+                if (images[index]) {
+                    thumb.src = images[index];
+                }
+            });
+        }
+
+        // 切换主图
+        function changeImage(index) {
+            if (images[index]) {
+                const mainImage = document.getElementById('mainImage');
+                mainImage.src = images[index];
+                
+                // 更新缩略图激活状态
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                thumbnails.forEach((thumb, i) => {
+                    if (i === index) {
+                        thumb.classList.add('active');
+                    } else {
+                        thumb.classList.remove('active');
+                    }
+                });
+            }
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', initImages);
+
+        // 添加到购物车
+        document.querySelector('.btn-cart').addEventListener('click', function() {
+            alert('商品已添加到购物车！');
+        });
+
+        // 立即购买
+        document.querySelector('.btn-buy').addEventListener('click', function() {
+            alert('跳转到结算页面...');
+        });
+
+        // 分享按钮
+        document.querySelector('.btn-share').addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Beach Dream Lace Dress',
+                    text: 'Check out this beautiful dress!',
+                    url: window.location.href
+                }).catch(err => console.log('分享失败', err));
+            } else {
+                // 备用方案：复制链接到剪贴板
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('链接已复制到剪贴板！');
+                }).catch(err => {
+                    alert('无法复制链接，请手动复制：' + window.location.href);
+                });
+            }
+        });
+
+        // 尺寸按钮选择
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 移除所有按钮的选中状态
+                document.querySelectorAll('.size-btn').forEach(b => {
+                    b.classList.remove('selected');
+                });
+                // 添加当前按钮的选中状态
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
+
